@@ -67,6 +67,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Делаем приложение.docx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005072003156_InitialCreate.resx">
