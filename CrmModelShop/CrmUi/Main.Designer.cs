@@ -30,10 +30,10 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.сущностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.товарToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.продавецToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.покупательToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.чекToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sellerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,37 +51,41 @@
             // сущностиToolStripMenuItem
             // 
             this.сущностиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.товарToolStripMenuItem,
-            this.продавецToolStripMenuItem,
-            this.покупательToolStripMenuItem,
-            this.чекToolStripMenuItem});
+            this.productToolStripMenuItem,
+            this.sellerToolStripMenuItem,
+            this.customerToolStripMenuItem,
+            this.checkToolStripMenuItem});
             this.сущностиToolStripMenuItem.Name = "сущностиToolStripMenuItem";
             this.сущностиToolStripMenuItem.Size = new System.Drawing.Size(91, 24);
             this.сущностиToolStripMenuItem.Text = "Сущности";
             // 
-            // товарToolStripMenuItem
+            // productToolStripMenuItem
             // 
-            this.товарToolStripMenuItem.Name = "товарToolStripMenuItem";
-            this.товарToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.товарToolStripMenuItem.Text = "Товар";
+            this.productToolStripMenuItem.Name = "productToolStripMenuItem";
+            this.productToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.productToolStripMenuItem.Text = "Товар";
+            this.productToolStripMenuItem.Click += new System.EventHandler(this.ProductToolStripMenuItem_Click);
             // 
-            // продавецToolStripMenuItem
+            // sellerToolStripMenuItem
             // 
-            this.продавецToolStripMenuItem.Name = "продавецToolStripMenuItem";
-            this.продавецToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.продавецToolStripMenuItem.Text = "Продавец";
+            this.sellerToolStripMenuItem.Name = "sellerToolStripMenuItem";
+            this.sellerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sellerToolStripMenuItem.Text = "Продавец";
+            this.sellerToolStripMenuItem.Click += new System.EventHandler(this.SellerToolStripMenuItem_Click);
             // 
-            // покупательToolStripMenuItem
+            // customerToolStripMenuItem
             // 
-            this.покупательToolStripMenuItem.Name = "покупательToolStripMenuItem";
-            this.покупательToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.покупательToolStripMenuItem.Text = "Покупатель";
+            this.customerToolStripMenuItem.Name = "customerToolStripMenuItem";
+            this.customerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.customerToolStripMenuItem.Text = "Покупатель";
+            this.customerToolStripMenuItem.Click += new System.EventHandler(this.CustomerToolStripMenuItem_Click);
             // 
-            // чекToolStripMenuItem
+            // checkToolStripMenuItem
             // 
-            this.чекToolStripMenuItem.Name = "чекToolStripMenuItem";
-            this.чекToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.чекToolStripMenuItem.Text = "Чек";
+            this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
+            this.checkToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.checkToolStripMenuItem.Text = "Чек";
+            this.checkToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -103,10 +107,10 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem сущностиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem товарToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem продавецToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem покупательToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem чекToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem productToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sellerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
     }
 }
 

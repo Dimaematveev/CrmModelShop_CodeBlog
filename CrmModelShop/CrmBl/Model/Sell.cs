@@ -1,6 +1,6 @@
 ﻿namespace CrmBl.Model
 {
-    class Sell
+    public class Sell
     {
         public int SellId{ get; set; }
 

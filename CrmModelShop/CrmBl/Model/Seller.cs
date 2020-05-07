@@ -2,7 +2,7 @@
 
 namespace CrmBl.Model
 {
-    class Seller
+    public class Seller
     {
         public int SellerId { get; set; }
         public string Name { get; set; }
