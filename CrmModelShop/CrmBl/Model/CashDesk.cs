@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,7 @@ namespace CrmBl.Model
         public Queue<Cart> Queue { get; set; }
         public int MaxQueueLenght { get; set; }
         public int ExitCustomert { get; set; }
+        public int Count => Queue.Count;
         /// <summary>
         /// Если true то значит модель , то есть не сохранять данные в базу.
         /// </summary>
@@ -40,6 +42,10 @@ namespace CrmBl.Model
         public decimal Dequeue()
         {
             decimal sum = 0;
+            if (Queue.Count == 0)
+            {
+                return 0;
+            }
             var card = Queue.Dequeue();
             if (card != null)
             {
