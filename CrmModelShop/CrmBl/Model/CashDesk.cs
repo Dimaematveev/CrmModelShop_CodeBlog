@@ -27,7 +27,7 @@ namespace CrmBl.Model
 
         public void Enqueu(Cart cart)
         {
-            if (Queue.Count < +MaxQueueLenght) 
+            if (Queue.Count <= MaxQueueLenght) 
             {
                 Queue.Enqueue(cart);
             }
