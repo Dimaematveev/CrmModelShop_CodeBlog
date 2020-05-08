@@ -5,18 +5,51 @@ using System.Linq;
 
 namespace CrmBl.Model
 {
+    /// <summary>
+    /// Касса
+    /// Cash desk
+    /// </summary>
     public class CashDesk
     {
+        /// <summary>
+        /// Контекст БД 
+        /// </summary>
         CrmContext db = new CrmContext();
 
+        /// <summary>
+        /// Номер кассы
+        /// Cash desk number 
+        /// </summary>
         public int Number { get; set; }
+        /// <summary>
+        /// Продавец
+        /// Seller
+        /// </summary>
         public Seller Seller { get; set; }
+        /// <summary>
+        /// Очередь (состоит из корзин покупателей)
+        /// Queue (consists of carts customers)
+        /// </summary>
         public Queue<Cart> Queue { get; set; }
-        public int MaxQueueLenght { get; set; }
+        /// <summary>
+        /// Максимальная длина очереди. После которой покупатель уйдет
+        /// Max length queue. After which the buyer will leave
+        /// </summary>
+
+        public int MaxQueueLength { get; set; }
+        /// <summary>
+        /// Количество ушедших покупателей
+        /// Number of departed customers
+        /// </summary>
         public int ExitCustomert { get; set; }
+        /// <summary>
+        /// Количество покупателей в очереди
+        /// Number customers in queue
+        /// </summary>
         public int Count => Queue.Count;
         /// <summary>
         /// Если true то значит модель , то есть не сохранять данные в базу.
+        /// If true, it means a model, that is, do not save data to the database.
         /// </summary>
         public bool IsModel { get; set; }
         public CashDesk(int number,Seller seller)
@@ -27,9 +60,14 @@ namespace CrmBl.Model
             IsModel = true;
         }
 
+        /// <summary>
+        /// Добавляем корзину в очередь
+        /// Add the cart to the queue
+        /// </summary>
+        /// <param name="cart"> </param>
         public void Enqueu(Cart cart)
         {
-            if (Queue.Count <= MaxQueueLenght) 
+            if (Queue.Count <= MaxQueueLength) 
             {
                 Queue.Enqueue(cart);
             }
@@ -38,7 +76,11 @@ namespace CrmBl.Model
                 ExitCustomert++;
             }
         }
-
+        /// <summary>
+        /// Извлекаем корзину из очереди
+        /// We remove the basket from the queue
+        /// </summary>
+        /// <returns>Количество денег за продукты в корзине. Count money at product in cart</returns>
         public decimal Dequeue()
         {
             decimal sum = 0;
