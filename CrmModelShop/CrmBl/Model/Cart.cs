@@ -11,6 +11,7 @@ namespace CrmBl.Model
         public Cart(Customer customer)
         {
             Customer = customer;
+            Products = new Dictionary<Product, int>();
         }
 
         public void Add(Product product)
@@ -35,7 +36,15 @@ namespace CrmBl.Model
                 }
             }
         }
-
+        public List<Product> GetAll()
+        {
+            var result = new List<Product>();
+            foreach (Product i in this)
+            {
+                result.Add(i);
+            }
+            return result;
+        }
 
     }
 }

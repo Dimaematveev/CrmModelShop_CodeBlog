@@ -26,7 +26,7 @@ namespace CrmBl.Model
             {
                 return ProductId.Equals(product.ProductId);
             }
-            return false();
+            return false;
             
         }
     }
