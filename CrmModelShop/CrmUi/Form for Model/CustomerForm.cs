@@ -28,7 +28,8 @@ namespace CrmUi
         private void CustomerForm_Load(object sender, EventArgs e)
         {
             DrawPanel("Введите имя: ", Customer, nameof(Customer.Name));
-            
+            DrawPanel("Введите имя: ", Customer, nameof(Customer.Name));
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,23 +50,28 @@ namespace CrmUi
             
             var textBox = new TextBox();
             var label = new Label();
-            var temp = new TieToPropertyUIElement(value, nameProperty, textBox, nameof(textBox.Text));
+            var temp = new TieToPropertyUIElement(value, nameProperty);
+            temp.AddUi(textBox, nameof(textBox.Text));
             Svaz.Add(temp);
+            int y = 10;
+            if (Svaz.Count >= 2) 
+            {
+                var pred = Svaz[Svaz.Count - 2];
+                var control = (Control)pred.UIElement;
+                y += control.Location.Y + control.Size.Height;
+            }
+            
             textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox.Location = new Point(144, 6);
+            textBox.Location = new Point(144, y);
             textBox.Name = "textBox1";
             textBox.Size = new Size(262, 20);
             textBox.TabIndex = 0;
             var zz = Svaz[Svaz.Count - 1].GetProp();
             textBox.Text = zz == null ? "" : zz.ToString();
 
-            
 
-            // 
-            // label1
-            // 
             label.AutoSize = true;
-            label.Location = new Point(12, 9);
+            label.Location = new Point(12, y);
             label.Name = "label1";
             label.Size = new Size(126, 13);
             label.TabIndex = 1;
