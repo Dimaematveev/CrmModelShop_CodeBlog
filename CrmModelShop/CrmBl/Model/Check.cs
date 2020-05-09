@@ -45,6 +45,10 @@ namespace CrmBl.Model
         /// Goods sold, link to the table Sell
         /// </summary>
         public virtual ICollection<Sell> Sells { get; set; }
+        /// <summary>
+        /// Сумма в чеке
+        /// </summary>
+        public decimal Price { get; set; }
 
         public override string ToString()
         {

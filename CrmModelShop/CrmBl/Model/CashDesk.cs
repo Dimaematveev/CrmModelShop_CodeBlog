@@ -48,6 +48,11 @@ namespace CrmBl.Model
         /// </summary>
         public int Count => Queue.Count;
         /// <summary>
+        /// Событие продажи
+        /// </summary>
+
+        public event EventHandler<Check> CheckClosed;
+        /// <summary>
         /// Если true то значит модель , то есть не сохранять данные в базу.
         /// If true, it means a model, that is, do not save data to the database.
         /// </summary>
@@ -135,10 +140,14 @@ namespace CrmBl.Model
                         sum += product.Price;
                     }
                 }
+                check.Price = sum;
+
                 if (!IsModel)
                 {
                     db.SaveChanges();
                 }
+                ///получим информацию и о кассе и о чеке
+                CheckClosed?.Invoke(this, check);
             }
             return sum;
         }
