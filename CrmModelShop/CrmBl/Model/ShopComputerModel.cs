@@ -12,6 +12,8 @@ namespace CrmBl.Model
     /// </summary>
     public class ShopComputerModel
     {
+
+       
         /// <summary>
         /// Генератор наших классов
         /// </summary>
@@ -20,11 +22,10 @@ namespace CrmBl.Model
         /// Для рандома
         /// </summary>
         Random rnd = new Random();
-        /// <summary>
-        /// CreateCarts для создания новых клиентов пока true
-        /// </summary>
-        bool isWorking = false;
 
+        List<Task> tasks = new List<Task>();
+        CancellationTokenSource cancellationTokenSource;
+        CancellationToken token;
         /// <summary>
         /// Список касс
         /// </summary>
@@ -56,6 +57,10 @@ namespace CrmBl.Model
             var sellers = Generator.GetNewSellers(20);
             Generator.GetNewProducts(1000);
             Generator.GetNewCustomers(100);
+
+            cancellationTokenSource = new CancellationTokenSource();
+            token = cancellationTokenSource.Token;
+
             foreach (var seller in sellers)
             {
                 Sellers.Enqueue(seller);
@@ -63,7 +68,7 @@ namespace CrmBl.Model
 
             for (int i = 0; i < 3; i++) 
             {
-                CashDesks.Add(new CashDesk(CashDesks.Count, Sellers.Dequeue()));
+                CashDesks.Add(new CashDesk(CashDesks.Count, Sellers.Dequeue(), null));
             }
 
         }
@@ -75,14 +80,17 @@ namespace CrmBl.Model
         {
             //Запуск в отдельном потоке
             isWorking = true;
-            Task.Run(()=> CreateCarts(10, CustomesSpeed));
 
-            var cashDeskTasks = CashDesks.Select(c => new Task(() => CashDeskWork(c, CashDeskSpeed)));
+            
+            tasks.Add(new Task(()=> CreateCarts(10,token)));
 
-            foreach (var task in cashDeskTasks)
+            tasks.AddRange(CashDesks.Select(c => new Task(() => CashDeskWork(c,token))));
+
+            foreach (var task in tasks)
             {
                 task.Start();
             }
+           
         }
 
         /// <summary>
@@ -90,7 +98,8 @@ namespace CrmBl.Model
         /// </summary>
         public void Stop()
         {
-            isWorking = false;
+            cancellationTokenSource.Cancel();
+
         }
 
         /// <summary>
@@ -98,14 +107,14 @@ namespace CrmBl.Model
         /// </summary>
         /// <param name="cashDesk">касса</param>
         /// <param name="sleep">Время задержки после создания покупателя. в мс</param>
-        private void CashDeskWork(CashDesk cashDesk, int sleep)
+        private void CashDeskWork(CashDesk cashDesk, CancellationToken token)
         {
-            while (isWorking)
+            while (!token.IsCancellationRequested)
             {
                 if (cashDesk.Count > 0)
                 {
                     cashDesk.Dequeue();
-                    Thread.Sleep(sleep);
+                    Thread.Sleep(CashDeskSpeed);
                 }
             }
 
@@ -116,9 +125,9 @@ namespace CrmBl.Model
         /// </summary>
         /// <param name="customerCounts">Кол-во покупателей(корзин)</param>
         /// <param name="sleep">Время задержки после создания покупателя. в мс</param>
-        private void CreateCarts(int customerCounts, int sleep)
+        private void CreateCarts(int customerCounts, CancellationToken token)
         {
-            while(isWorking)
+            while(!token.IsCancellationRequested)
             {
                 var customers = Generator.GetNewCustomers(customerCounts);
                 
@@ -133,7 +142,7 @@ namespace CrmBl.Model
                     var cash = CashDesks[rnd.Next(CashDesks.Count)];//ToDO:
                     cash.Enqueu(cart);
                 }
-                Thread.Sleep(sleep);
+                Thread.Sleep(CustomesSpeed);
             }
             
         }

@@ -14,7 +14,7 @@ namespace CrmBl.Model
         /// <summary>
         /// Контекст БД 
         /// </summary>
-        CrmContext db = new CrmContext();
+        CrmContext db;
 
         /// <summary>
         /// Номер кассы
@@ -57,8 +57,9 @@ namespace CrmBl.Model
         /// If true, it means a model, that is, do not save data to the database.
         /// </summary>
         public bool IsModel { get; set; }
-        public CashDesk(int number,Seller seller)
+        public CashDesk(int number,Seller seller, CrmContext db)
         {
+            this.db = db ?? new CrmContext();
             Number = number;
             Seller = seller;
             Queue = new Queue<Cart>();
@@ -73,7 +74,7 @@ namespace CrmBl.Model
         /// <param name="cart"> </param>
         public void Enqueu(Cart cart)
         {
-            if (Queue.Count <= MaxQueueLength) 
+            if (Queue.Count < MaxQueueLength) 
             {
                 Queue.Enqueue(cart);
             }
