@@ -72,7 +72,7 @@ namespace CrmBl.Model
         {
             //Запуск в отдельном потоке
             isWorking = true;
-            Task.Run(()=> CreateCarts(10,1000));
+            Task.Run(()=> CreateCarts(10,100));
 
             var cashDeskTasks = CashDesks.Select(c => new Task(() => CashDeskWork(c, 1000)));
 
@@ -127,7 +127,7 @@ namespace CrmBl.Model
                     {
                         cart.Add(product);
                     }
-                    var cash = CashDesks[rnd.Next(CashDesks.Count - 1)];//ToDO:
+                    var cash = CashDesks[rnd.Next(CashDesks.Count)];//ToDO:
                     cash.Enqueu(cart);
                 }
                 Thread.Sleep(sleep);

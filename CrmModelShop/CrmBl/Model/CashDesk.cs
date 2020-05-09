@@ -63,6 +63,7 @@ namespace CrmBl.Model
             Seller = seller;
             Queue = new Queue<Cart>();
             IsModel = true;
+            MaxQueueLength = 10;
         }
 
         /// <summary>
@@ -150,6 +151,11 @@ namespace CrmBl.Model
                 CheckClosed?.Invoke(this, check);
             }
             return sum;
+        }
+
+        public override string ToString()
+        {
+            return $"Касса №{Number}";
         }
     }
 }
