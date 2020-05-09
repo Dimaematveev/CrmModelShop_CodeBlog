@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CrmBl.Model
 {
@@ -18,6 +20,10 @@ namespace CrmBl.Model
         /// Для рандома
         /// </summary>
         Random rnd = new Random();
+        /// <summary>
+        /// CreateCarts для создания новых клиентов пока true
+        /// </summary>
+        bool isWorking = false;
 
         /// <summary>
         /// Список касс
@@ -64,30 +70,69 @@ namespace CrmBl.Model
         /// </summary>
         public void Start()
         {
-            var customers = Generator.GetNewCustomers(10);
-            var carts = new Queue<Cart>();
-            foreach (var customer in customers)
+            //Запуск в отдельном потоке
+            isWorking = true;
+            Task.Run(()=> CreateCarts(10,1000));
+
+            var cashDeskTasks = CashDesks.Select(c => new Task(() => CashDeskWork(c, 1000)));
+
+            foreach (var task in cashDeskTasks)
             {
-                var cart = new Cart(customer);
-                foreach (var prod in Generator.GetRandomProducts(10,30))
+                task.Start();
+            }
+        }
+
+        /// <summary>
+        /// Для остановки потоков
+        /// </summary>
+        public void Stop()
+        {
+            isWorking = false;
+        }
+
+        /// <summary>
+        /// Работа касс
+        /// </summary>
+        /// <param name="cashDesk">касса</param>
+        /// <param name="sleep">Время задержки после создания покупателя. в мс</param>
+        private void CashDeskWork(CashDesk cashDesk, int sleep)
+        {
+            while (isWorking)
+            {
+                if (cashDesk.Count > 0)
                 {
-                    cart.Add(prod);
+                    cashDesk.Dequeue();
+                    Thread.Sleep(sleep);
                 }
-                carts.Enqueue(cart);
             }
 
-            while (carts.Count > 0)
+        }
+
+        /// <summary>
+        /// Создание Корзин и покупателей. Делаем в отдельных потоках
+        /// </summary>
+        /// <param name="customerCounts">Кол-во покупателей(корзин)</param>
+        /// <param name="sleep">Время задержки после создания покупателя. в мс</param>
+        private void CreateCarts(int customerCounts, int sleep)
+        {
+            while(isWorking)
             {
-                var cash = CashDesks[rnd.Next(CashDesks.Count - 1)];//ToDO:
-                cash.Enqueu(carts.Dequeue());
-            }
+                var customers = Generator.GetNewCustomers(customerCounts);
+                
 
-
-            while (true)
-            {
-                var cash = CashDesks[rnd.Next(CashDesks.Count - 1)];//ToDO:
-                var money = cash.Dequeue();
+                foreach (var customer in customers)
+                {
+                    var cart = new Cart(customer);
+                    foreach (var product in Generator.GetRandomProducts(10,30))
+                    {
+                        cart.Add(product);
+                    }
+                    var cash = CashDesks[rnd.Next(CashDesks.Count - 1)];//ToDO:
+                    cash.Enqueu(cart);
+                }
+                Thread.Sleep(sleep);
             }
+            
         }
     }
 }
