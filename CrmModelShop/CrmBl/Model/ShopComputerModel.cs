@@ -48,6 +48,9 @@ namespace CrmBl.Model
         /// Очередь продавцов
         /// </summary>
         public Queue<Seller> Sellers { get; set; } = new Queue<Seller>();
+        public int CustomesSpeed { get; set; } = 100;
+        public int CashDeskSpeed { get; set; } = 100;
+
         public ShopComputerModel()
         {
             var sellers = Generator.GetNewSellers(20);
@@ -72,9 +75,9 @@ namespace CrmBl.Model
         {
             //Запуск в отдельном потоке
             isWorking = true;
-            Task.Run(()=> CreateCarts(10,100));
+            Task.Run(()=> CreateCarts(10, CustomesSpeed));
 
-            var cashDeskTasks = CashDesks.Select(c => new Task(() => CashDeskWork(c, 1000)));
+            var cashDeskTasks = CashDesks.Select(c => new Task(() => CashDeskWork(c, CashDeskSpeed)));
 
             foreach (var task in cashDeskTasks)
             {
