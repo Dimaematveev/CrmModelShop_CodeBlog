@@ -4,17 +4,43 @@ using System.Linq;
 
 namespace CrmBl.Model
 {
+    /// <summary>
+    /// Компьютерная модель, для проверки работоспособности логики приложения
+    /// Computer model, for check work logic application
+    /// </summary>
     public class ShopComputerModel
     {
+        /// <summary>
+        /// Генератор наших классов
+        /// </summary>
         Generator Generator = new Generator();
+        /// <summary>
+        /// Для рандома
+        /// </summary>
         Random rnd = new Random();
 
+        /// <summary>
+        /// Список касс
+        /// </summary>
         public List<CashDesk> CashDesks { get; set; } = new List<CashDesk>();
+        /// <summary>
+        /// Список корзин
+        /// </summary>
         public List<Cart> Carts { get; set; } = new List<Cart>();
 
+        /// <summary>
+        /// Список чеков
+        /// </summary>
         public List<Check> Checks { get; set; } = new List<Check>();
+
+        /// <summary>
+        /// Список покупок
+        /// </summary>
         public List<Sell> Sells { get; set; } = new List<Sell>();
 
+        /// <summary>
+        /// Очередь продавцов
+        /// </summary>
         public Queue<Seller> Sellers { get; set; } = new Queue<Seller>();
         public ShopComputerModel()
         {
@@ -33,6 +59,9 @@ namespace CrmBl.Model
 
         }
 
+        /// <summary>
+        /// Запустиь компьютерную модель
+        /// </summary>
         public void Start()
         {
             var customers = Generator.GetNewCustomers(10);
