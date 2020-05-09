@@ -63,34 +63,35 @@
     <Compile Include="Catalog.Designer.cs">
       <DependentUpon>Catalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form for Model\TieToPropertyUIElement.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelForm.cs">
+    <Compile Include="Form for Model\ModelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModelForm.Designer.cs">
+    <Compile Include="Form for Model\ModelForm.Designer.cs">
       <DependentUpon>ModelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductForm.cs">
+    <Compile Include="Form for Model\ProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProductForm.Designer.cs">
+    <Compile Include="Form for Model\ProductForm.Designer.cs">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SellerForm.cs">
+    <Compile Include="Form for Model\SellerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SellerForm.Designer.cs">
+    <Compile Include="Form for Model\SellerForm.Designer.cs">
       <DependentUpon>SellerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomerForm.cs">
+    <Compile Include="Form for Model\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomerForm.Designer.cs">
+    <Compile Include="Form for Model\CustomerForm.Designer.cs">
       <DependentUpon>CustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
@@ -107,16 +108,16 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModelForm.resx">
+    <EmbeddedResource Include="Form for Model\ModelForm.resx">
       <DependentUpon>ModelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProductForm.resx">
+    <EmbeddedResource Include="Form for Model\ProductForm.resx">
       <DependentUpon>ProductForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SellerForm.resx">
+    <EmbeddedResource Include="Form for Model\SellerForm.resx">
       <DependentUpon>SellerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CustomerForm.resx">
+    <EmbeddedResource Include="Form for Model\CustomerForm.resx">
       <DependentUpon>CustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">

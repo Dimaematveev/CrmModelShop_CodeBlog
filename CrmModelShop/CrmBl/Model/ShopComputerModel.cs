@@ -79,7 +79,7 @@ namespace CrmBl.Model
         public void Start()
         {
             //Запуск в отдельном потоке
-            isWorking = true;
+            //isWorking = true;
 
             
             tasks.Add(new Task(()=> CreateCarts(10,token)));
